@@ -23,6 +23,9 @@ public class PlayerControllerScript : MonoBehaviour
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
     public float maxJumps = 1; //The maximum n umber of times the character can jump. 1 is from ground. Any more is from the air.
+    public int rotationAngle; //Player rotation angle - for the column.
+
+ //   public GameObject playerModel; //The player model object.
 
     private Vector3 moveDirection = Vector3.zero;
     private float currentSpeed = 0.0f; //Default movement speed. 0 means character is standing when spawned
@@ -45,16 +48,18 @@ public class PlayerControllerScript : MonoBehaviour
         {
             Vector3 velocity = Vector3.zero;
             //This next line sets the default rotation based on player's direction
-            Vector3 desiredAngles = new Vector3(model.localEulerAngles.x, 90, model.localEulerAngles.z);
+            Vector3 desiredAngles = new Vector3(0, model.eulerAngles.y + rotationAngle * Time.deltaTime, 0);
             model.localEulerAngles = (Vector3.SmoothDamp(model.localEulerAngles, desiredAngles, ref velocity, 1 * Time.deltaTime));
+            characterController.Move(model.transform.forward * speed * Time.deltaTime);
         }
 
         else if (Input.GetAxis("Horizontal") > 0)
         {
             Vector3 velocity = Vector3.zero;
             //This next line sets the default rotation based on player's direction
-            Vector3 desiredAngles = new Vector3(model.localEulerAngles.x, 270, model.localEulerAngles.z);
+            Vector3 desiredAngles = new Vector3(0, model.eulerAngles.y + rotationAngle * Time.deltaTime, 0);
             model.localEulerAngles = (Vector3.SmoothDamp(model.localEulerAngles, desiredAngles, ref velocity, 1 * Time.deltaTime));
+            characterController.Move(model.transform.forward * speed * Time.deltaTime);
         }
 
         //Now for the jumping stuff
@@ -83,7 +88,7 @@ public class PlayerControllerScript : MonoBehaviour
         }
 
         //And now we get the actual character controller moving!
-        characterController.Move(moveDirection * Time.deltaTime);
+ //       characterController.Move(model.transform.forward * Time.deltaTime);
 
     }
 }
