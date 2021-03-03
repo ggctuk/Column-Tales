@@ -7,6 +7,8 @@ TagManager:
   - Model
   - Ground
   - Enemy
+  - Environment
+  - Obstacle
   layers:
   - Default
   - TransparentFX

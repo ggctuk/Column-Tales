@@ -8,13 +8,6 @@ public class PlayerJumpScript : MonoBehaviour
     public float jumpHeight = 10.0f;
     public float currentJumps = 0;
     public float maxJumps = 1;
- //   public bool isGrounded;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
